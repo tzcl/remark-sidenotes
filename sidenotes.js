@@ -1,6 +1,6 @@
-import { visit } from "unist-util-visit";
+import { visit, SKIP } from "unist-util-visit";
 
-const generateHTML = (id, content) => {
+const generateHTML = (id, children) => {
   return [
     {
       type: "sidenoteLabel",
@@ -28,8 +28,8 @@ const generateHTML = (id, content) => {
       data: {
         hName: "span",
         hProperties: { className: ["sidenote"] },
-        hChildren: content,
       },
+      children: children,
     },
   ];
 };
@@ -41,18 +41,25 @@ const sidenotes = () => {
     // Extract footnote content
     visit(tree, "footnoteDefinition", (node, index, parent) => {
       footnotes.set(node.identifier, node.children);
+
+      // Remove this node so remark-rehype doesn't generate footnotes
       parent.children.splice(index, 1);
+
+      // This means we need to visit the same index again
+      return index;
     });
 
     // Replace footnote references with sidenotes
     visit(tree, "footnoteReference", (node, index, parent) => {
-      // This is an array (children of the footnote content node)!
-      // TODO: Is this what I want??
-      const content = footnotes.get(node.identifier)[0].children;
-
+      // Assume content is type `paragraph`
+      const children = footnotes.get(node.identifier)[0].children;
       const id = `sidenote-${node.identifier}`;
 
-      parent.children.splice(index, 1, ...generateHTML(id, content));
+      // Turn the footnote reference node into a sidenote
+      parent.children.splice(index, 1, ...generateHTML(id, children));
+
+      // We've replaced this node so we should skip visiting its descendants
+      return SKIP;
     });
   };
 };

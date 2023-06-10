@@ -1,5 +1,6 @@
 import remarkSidenotes from "./sidenotes.js";
 
+import { readFileSync } from "fs";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
@@ -18,11 +19,10 @@ const result = unified()
   .use(remarkSidenotes)
   .use(remarkRehype)
   .use(rehypeStringify)
-  .processSync(markdown)
+  .processSync(readFileSync("test.md"))
   .toString();
 
 console.log(result);
 
 // TODO: Learn how to write real tests
-// TODO: Learn about versioning
 // TODO: Rewrite in TypeScript?
