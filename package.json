@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": false,
   "type": "module",
-  "main": "index.js",
+  "main": "sidenotes.js",
   "scripts": {
     "test": "jest"
   },
@@ -23,10 +23,9 @@
     "remark-gfm": "^3.0.1",
     "remark-parse": "^10.0.2",
     "remark-rehype": "^10.1.0",
-    "to-vfile": "^7.2.4"
+    "unified": "^10.1.2"
   },
   "dependencies": {
-    "unified": "^10.1.2",
     "unist-util-visit": "^4.1.2"
   }
 }
