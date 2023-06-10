@@ -1,0 +1,32 @@
+{
+  "name": "remark-sidenotes",
+  "version": "0.0.1",
+  "description": "Replace footnotes with Tufte-style sidenotes",
+  "author": "Toby Law <toby@tzcl.me>",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "remark",
+    "plugin",
+    "markdown",
+    "tufte",
+    "sidenotes"
+  ],
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "rehype-stringify": "^9.0.3",
+    "remark-gfm": "^3.0.1",
+    "remark-parse": "^10.0.2",
+    "remark-rehype": "^10.1.0",
+    "to-vfile": "^7.2.4"
+  },
+  "dependencies": {
+    "unified": "^10.1.2",
+    "unist-util-visit": "^4.1.2"
+  }
+}
